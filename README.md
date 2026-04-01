@@ -62,7 +62,7 @@ npm run start
 
 ## Roadmap
 
-- [ ] Add login and register forms to the web application for user authentication using Passport.js and Prisma
+- [x] Add login and register forms to the web application for user authentication using Passport.js and Prisma
 - [ ] Add a form for authenticated users to upload a file
 - [ ] Add functionalities to add folders to organise the files
 - [ ] Add file validation
