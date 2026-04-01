@@ -1,5 +1,13 @@
-import { prisma } from './lib/prisma.js';
-async function main() {
+import { prisma } from './config/prisma.js';
+
+const resetDB = async () => {
+  await prisma.$executeRawUnsafe(
+    `TRUNCATE TABLE "User", "File" RESTART IDENTITY CASCADE`
+  );
+};
+
+const main = async () => {
+  await resetDB();
   // Create a new user with a post
   const user = await prisma.user.create({
     data: {
@@ -28,7 +36,8 @@ async function main() {
     },
   });
   console.log('All users:', JSON.stringify(allUsers, null, 2));
-}
+};
+
 main()
   .then(async () => {
     await prisma.$disconnect();
