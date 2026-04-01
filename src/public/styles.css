@@ -1,3 +1,176 @@
+:root {
+  --font-family: 'Poppins', sans-serif;
+  --blue: #3b82f6;
+  --white: #ffffff;
+  --black: #333333;
+  --light-grey: #f5f7fa;
+  --green: #9fff9c;
+  --red: #ff9c9c;
+  --header-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  --content-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.16);
+}
+
+@media screen and (max-width: 2560px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 1920px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  color: red;
+  font-family: var(--font-family);
+  height: 100vh;
+  background-color: var(--light-grey);
+  color: var(--black);
+}
+
+button {
+  cursor: pointer;
+}
+
+header.navigation .navigation-container {
+  background-color: var(--blue);
+  color: white;
+  padding: 1.25rem 3.5rem;
+  display: flex;
+  align-items: center;
+  box-shadow: var(--header-box-shadow);
+}
+
+header.navigation .navigation-links-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 1rem;
+}
+
+header.navigation .navigation-links {
+  color: inherit;
+  font-size: 1.25rem;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+header.navigation .navigation-links:first-of-type {
+  margin-right: auto;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+header.navigation .navigation-links:hover {
+  text-decoration: underline;
+}
+
+header.navigation .navigation-links:first-of-type:hover {
+  text-decoration: none;
+}
+
+main .form-container {
+  margin-top: 3rem;
+  justify-self: center;
+  width: 30vw;
+  background-color: white;
+  padding: 1.5rem 3.25rem;
+  justify-self: center;
+  border: 0.5px solid var(--light-grey);
+  border-radius: 1rem;
+  box-shadow: var(--content-box-shadow);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+main .form-container .form-header {
+  color: var(--blue);
+  margin-bottom: 1rem;
+}
+
+main .form-container .input-forms {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+main .form-container .input-wrapper label {
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: var(--black);
+}
+
+main .form-container .input-wrapper input {
+  margin-top: 0.5rem;
+  font-family: inherit;
+  font-weight: 600;
+  width: 100%;
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--light-grey);
+  border-radius: 0.5rem;
+  box-shadow: var(--content-box-shadow);
+}
+
+main .form-container .input-wrapper input:focus {
+  outline: none;
+  border: 2px solid var(--blue);
+}
+
+main .form-container .submit-button {
+  margin-top: 1rem;
+  font-family: inherit;
+  font-size: 1.1rem;
+  color: var(--white);
+  background-color: var(--blue);
+  box-shadow: var(--content-box-shadow);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0rem;
+  border: none;
+  font-weight: 600;
+}
+
+main .form-container .reroute-message {
+  font-weight: 500;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+main .form-container .reroute-message a {
+  color: var(--blue);
+}
+
+main .form-container .input-wrapper .input-error {
+  border: 1px solid var(--red);
+}
+
+main .form-container .input-wrapper .input-error:focus {
+  border: 2px solid var(--red);
+}
+
+main .form-container .error-msg {
+  margin-top: 0.1rem;
+  font-weight: 600;
+  color: var(--red);
+}
+
+main .form-container .auth-error-msg {
+  background-color: var(--red);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 1.1rem;
+  box-shadow: var(--content-box-shadow);
+  padding: 0.5rem 1rem;
+  box-shadow: var(--content-box-shadow);
+  border-radius: 0.25rem;
 }

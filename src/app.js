@@ -2,12 +2,17 @@ import express from 'express';
 import expressLayouts from 'express-ejs-layouts';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import flash from 'connect-flash';
+import session from 'express-session';
 import 'dotenv/config';
 
-import errorHandler from './middleware/errorHandler.js';
+import passport from './config/passport.js';
 
-import indexRouter from './routes/indexRouter.js';
-import routeRouter from './routes/routeRouter.js';
+import createLocals from './middleware/locals.middleware.js';
+import errorHandler from './middleware/error.middleware.js';
+
+import indexRoutes from './routes/index.routes.js';
+import authRoutes from './routes/auth.routes.js';
 
 const app = express();
 
@@ -20,22 +25,23 @@ const assetsPath = path.join(__dirname, 'public');
 app.use(expressLayouts);
 app.use(express.static(assetsPath));
 
+// Use the passport and flash instances
+app.use(session({ secret: 'cats', resave: false, saveUninitialized: false }));
+app.use(flash());
+app.use(passport.session());
+
+// Parse incoming POST request data to be converted into a useable JS object
+app.use(express.urlencoded({ extended: true }));
+
 // Set Views engine anf Express layout
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.set('layout', 'layout');
 
-app.use((req, res, next) => {
-  res.locals.links = [
-    { href: '/', text: 'Home' },
-    { href: '/route', text: 'Route' },
-  ];
+app.use(createLocals);
 
-  next();
-});
-
-app.use('/', indexRouter);
-app.use('/route', routeRouter);
+app.use('/', indexRoutes);
+app.use('/auth', authRoutes);
 
 app.use(errorHandler);
 

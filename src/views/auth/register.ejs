@@ -1,0 +1,52 @@
+<div class="form-container">
+  <h1 class="form-header">Register a new account</h1>
+  <form class="input-forms" method="POST" action="/auth/register">
+    <div class="input-wrapper">
+      <% const usernameError = errors?.find(e => e.path === 'username'); %>
+      <label for="username">Username </label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        class="<%= usernameError ? 'input-error' : '' %>"
+        value="<%= formData.username %>"
+      />
+    </div>
+    <% if (usernameError) {%>
+    <p class="error-msg"><%= usernameError.msg %></p>
+    <% } %>
+
+    <div class="input-wrapper">
+      <% const passwordError = errors?.find(e => e.path === 'password'); %>
+      <label for="password">Password </label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        class="<%= passwordError ? 'input-error' : '' %>"
+      />
+    </div>
+    <% if (passwordError) {%>
+    <p class="error-msg"><%= passwordError.msg %></p>
+    <% } %>
+
+    <div class="input-wrapper">
+      <% const confirmPasswordError = errors?.find(e => e.path ===
+      'confirm-password'); %>
+      <label for="username">Confirm password</label>
+      <input
+        type="password"
+        id="confirm-password"
+        name="confirm-password"
+        class="<%= confirmPasswordError ? 'input-error' : '' %>"
+      />
+    </div>
+    <% if (confirmPasswordError) {%>
+    <p class="error-msg"><%= confirmPasswordError.msg %></p>
+    <% } %>
+
+    <button class="submit-button" type="submit" value="Submit">Register</button>
+
+    <p class="reroute-message">Have an account? <a href="/login">Log In</a></p>
+  </form>
+</div>
