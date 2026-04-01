@@ -21,3 +21,4 @@ lerna-debug.log*
 node_modules
 .env
 /generated/prisma
+uploads
