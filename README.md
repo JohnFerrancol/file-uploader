@@ -1,16 +1,17 @@
-# Express Template
+# File Uploader
 
 [Live Demo](#)<br/><br/>
 [![The Odin Project](https://img.shields.io/badge/The%20Odin%20Project-A9792B?logo=theodinproject&logoColor=fff)](#)
 
 ## Overview
 
-This is a project from [The Odin Project](https://theodinproject.com): [Project: ](#).
+This is a project from [The Odin Project](https://theodinproject.com): [Project: File Uploader](https://www.theodinproject.com/lessons/nodejs-file-uploader). In this project, I built a stripped down version of [Google Drive](https://workspace.google.com/products/drive/). This is where we are using Prisma ORM and the [multer middleware](https://github.com/expressjs/multer) for file upload.
 
 ## Learning Points
 
--
--
+- Understand the benefits of using an Object-Relation Mapping to manipulate a relational database using object-oriented code instead of raw SQL
+- Understand the use of the Multer middleware to upload files to a backend web server
+- Implemented a cloud-based storage system for uploading files to the database, such as Supabase
 
 ## Tech Stack
 
@@ -25,7 +26,7 @@ This is a project from [The Odin Project](https://theodinproject.com): [Project:
 
 ### Prerequisites
 
-You will need to install the latest version of npm to get started on using this project
+You will need to install the latest version of npm and have PostgreSQL set up to get started on using this project
 
 - npm
 
@@ -33,20 +34,22 @@ You will need to install the latest version of npm to get started on using this 
 npm install npm@latest -g
 ```
 
+- [PostgreSQL setup](https://www.theodinproject.com/lessons/nodejs-using-postgresql)
+
 ### Installation
 
-Getting started on running the webpack server to your localhost, localhost:8080
+Getting started on running the express server on your localhost, localhost:3000
 
 1. Cloning the repository
 
 ```sh
-git clone git@github.com:JohnFerrancol/XX.git
+git clone git@github.com:JohnFerrancol/file-uploader.git
 ```
 
-2. Navigate to XX folder and install npm packages
+2. Navigate to file-uploader folder and install npm packages
 
 ```sh
-cd XX && npm install
+cd file-uploader && npm install
 ```
 
 3. Running the Express server
@@ -59,5 +62,7 @@ npm run start
 
 ## Roadmap
 
-- [ ] XXX
-- [ ] XXX
+- [ ] Add login and register forms to the web application for user authentication using Passport.js and Prisma
+- [ ] Add a form for authenticated users to upload a file
+- [ ] Add functionalities to add folders to organise the files
+- [ ] Add file validation
