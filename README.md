@@ -63,6 +63,7 @@ npm run start
 ## Roadmap
 
 - [x] Add login and register forms to the web application for user authentication using Passport.js and Prisma
-- [ ] Add a form for authenticated users to upload a file
-- [ ] Add functionalities to add folders to organise the files
-- [ ] Add file validation
+- [x] Add a form for authenticated users to upload a file
+- [x] Add functionalities to add folders to organise the files
+- [x] Add file validation
+- [ ] Put the files inside a Supabase instead of locally on an uploads folder
