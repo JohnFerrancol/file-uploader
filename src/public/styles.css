@@ -174,3 +174,44 @@ main .form-container .auth-error-msg {
   box-shadow: var(--content-box-shadow);
   border-radius: 0.25rem;
 }
+
+main .form-container input[type='file'] {
+  align-self: center;
+  font-family: inherit;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+main .form-container input[type='file']::file-selector-button {
+  background-color: var(--blue);
+  font-family: inherit;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  transition: background 0.3s;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+main .add-entry-button {
+  font-family: inherit;
+  background-color: var(--blue);
+  color: var(--white);
+  font-size: 1.25rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  border: none;
+  box-shadow: var(--content-box-shadow);
+}
+
+main .root-page .root-header {
+  margin-left: 6.5rem;
+  margin-top: 2rem;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}

@@ -13,6 +13,7 @@ import errorHandler from './middleware/error.middleware.js';
 
 import indexRoutes from './routes/index.routes.js';
 import authRoutes from './routes/auth.routes.js';
+import filesRoutes from './routes/files.routes.js';
 
 const app = express();
 
@@ -42,6 +43,7 @@ app.use(createLocals);
 
 app.use('/', indexRoutes);
 app.use('/auth', authRoutes);
+app.use('/files', filesRoutes);
 
 app.use(errorHandler);
 
