@@ -51,7 +51,7 @@ git clone git@github.com:JohnFerrancol/file-uploader.git
 cd file-uploader && npm install
 ```
 
-3. Set up local environment and fill in DATABASE_URL, the Supabase information
+3. Set up local environment and fill in DATABASE_URL, Session Secret and the Supabase information
 
 ```sh
 cp .env.example .env
