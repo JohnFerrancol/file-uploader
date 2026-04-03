@@ -17,6 +17,7 @@
   "dependencies": {
     "@prisma/adapter-pg": "^7.6.0",
     "@prisma/client": "^7.6.0",
+    "@supabase/supabase-js": "^2.101.1",
     "bcryptjs": "^3.0.3",
     "connect-flash": "^0.1.1",
     "connect-pg-simple": "^10.0.0",

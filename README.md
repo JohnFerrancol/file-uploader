@@ -66,4 +66,4 @@ npm run start
 - [x] Add a form for authenticated users to upload a file
 - [x] Add functionalities to add folders to organise the files
 - [x] Add file validation
-- [ ] Put the files inside a Supabase instead of locally on an uploads folder
+- [x] Put the files inside a Supabase instead of locally on an uploads folder

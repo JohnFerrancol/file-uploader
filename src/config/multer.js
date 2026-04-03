@@ -1,38 +1,26 @@
 import multer from 'multer';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { getFolderById } from '../services/folders.services.js';
 import { formatSize } from '../middleware/locals.middleware.js';
 
-// Get current working directory
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// Allowed MIME types
+const allowedTypes = [
+  'application/pdf',
+  'text/plain',
+  'image/jpeg',
+  'image/png',
+];
 
-// Navigate to the uploads folder in the project root
-const UPLOADS_DIR = path.resolve(__dirname, '../../uploads');
+// Max file size = 20MB
+const MAX_FILE_SIZE = 20 * 1024 * 1024;
 
-// Temp Solution - Store the files locally in an uploads folder first
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, UPLOADS_DIR);
-  },
-  filename: (req, file, cb) => {
-    const uniqueName = `${Date.now()}-${file.originalname}`;
-    cb(null, uniqueName);
-  },
-});
+// Use memory storage for Supabase upload
+const storage = multer.memoryStorage();
 
 const upload = multer({
   // Ensures a 20MB File Limit
-  limits: { fileSize: 20 * 1024 * 1024 },
+  limits: { fileSize: MAX_FILE_SIZE },
   // Ensures the correct file type
   fileFilter: (req, file, cb) => {
-    const allowedTypes = [
-      'application/pdf',
-      'text/plain',
-      'image/jpeg',
-      'image/png',
-    ];
     if (allowedTypes.includes(file.mimetype)) {
       cb(null, true); // Accept file
     } else {

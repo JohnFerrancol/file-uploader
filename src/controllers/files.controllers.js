@@ -7,6 +7,7 @@ import newFileValidator from '../validators/files.validators.js';
 import { validationResult } from 'express-validator';
 import { getFolderById } from '../services/folders.services.js';
 import { formatSize } from '../middleware/locals.middleware.js';
+import { supabase } from '../config/supabase.js';
 
 const newFileGet = async (req, res) => {
   const folderId = Number(req.params.id);
@@ -65,9 +66,21 @@ const newFilePost = [
       });
     }
 
-    const { filename, size, path, mimetype } = req.file;
+    const { originalname, size, mimetype, buffer } = req.file;
     const userId = req.user.id;
-    await insertNewFile(filename, size, path, mimetype, userId, folderId);
+    const filename = `${Date.now()}-${originalname}`;
+    const fileKey = `file/${Date.now()}-${originalname}`;
+
+    const { error } = await supabase.storage
+      .from('files')
+      .upload(fileKey, buffer, { contentType: mimetype });
+
+    if (error) {
+      console.error(error);
+      return res.status(500).send('Error uploading file to cloud storage');
+    }
+
+    await insertNewFile(filename, size, fileKey, mimetype, userId, folderId);
 
     if (folderId) {
       return res.redirect(`/folders/${folderId}`);
@@ -77,19 +90,41 @@ const newFilePost = [
 ];
 
 const downloadFileGet = async (req, res) => {
-  const fileId = Number(req.params.id);
+  try {
+    const fileId = Number(req.params.id);
 
-  const file = await getFileFromId(fileId);
+    const file = await getFileFromId(fileId);
 
-  if (!file) {
-    return res.status(404).send('File not found');
+    if (!file) return res.status(404).send('File not found');
+
+    // Authorization: ensure the user owns the file
+    if (file.userId !== req.user.id) {
+      return res.status(403).send('Unauthorized');
+    }
+
+    // Download the file from Supabase bucket
+    const { data, error } = await supabase.storage
+      .from('files')
+      .download(file.path);
+
+    if (error) throw error;
+
+    // Convert the Blob to a Node.js Buffer
+    const buffer = Buffer.from(await data.arrayBuffer());
+
+    // Tell the browser to treat it as a download
+    res.setHeader(
+      'Content-Disposition',
+      `attachment; filename="${file.filename}"`
+    );
+    res.setHeader('Content-Type', file.mimetype);
+
+    // Send the file
+    res.send(buffer);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error downloading file');
   }
-
-  if (file.userId !== req.user.id) {
-    return res.status(403).send('Unauthorized');
-  }
-
-  res.download(file.path, file.filename);
 };
 
 const deleteFileGet = async (req, res) => {
@@ -135,7 +170,6 @@ const deleteFileGet = async (req, res) => {
 };
 
 const deleteFilePost = async (req, res) => {
-  console.log(req.params);
   const folderId = req.params.folderId;
   const fileId = Number(req.params.fileId) || Number(req.params.id);
 
@@ -147,6 +181,16 @@ const deleteFilePost = async (req, res) => {
 
   if (file.userId !== req.user.id) {
     return res.status(403).send('Unauthorized');
+  }
+
+  // Delete File from supabase storage
+  const { data, error } = await supabase.storage
+    .from('files')
+    .remove(file.path);
+
+  if (error) {
+    console.error('Supabase deletion error:', error);
+    return res.status(500).send('Could not delete physical file in supabase');
   }
 
   await deleteFileById(fileId);
