@@ -5,4 +5,31 @@
       ><button class="add-entry-button">Upload File</button></a
     >
   </div>
+  <div class="files-container">
+    <table class="files-table">
+      <thead>
+        <tr>
+          <th>File Name</th>
+          <th>Size</th>
+          <th>Upload Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% files.forEach(file => { %>
+        <tr>
+          <td><%= file.filename %></td>
+          <td><%= file.size %></td>
+          <td><%= file.createdAt %></td>
+          <td class="btn-group">
+            <a href="/files/<%= file.id %>/download">
+              <i class="fa-solid fa-download fa-lg"></i>
+            </a>
+            <i class="fa-solid fa-trash fa-lg"></i>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
 </div>

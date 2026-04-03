@@ -1,5 +1,20 @@
 import { prisma } from '../config/prisma.js';
 
+const getUserFiles = async (userId) => {
+  const files = await prisma.file.findMany({
+    where: { userId: userId },
+  });
+  return files;
+};
+
+const getFileFromId = async (fileId) => {
+  const file = await prisma.file.findUnique({
+    where: { id: fileId },
+  });
+
+  return file;
+};
+
 const insertNewFile = async (filename, size, path, mimetype, userId) => {
   await prisma.file.create({
     data: {
@@ -12,4 +27,4 @@ const insertNewFile = async (filename, size, path, mimetype, userId) => {
   });
 };
 
-export { insertNewFile };
+export { getUserFiles, getFileFromId, insertNewFile };
