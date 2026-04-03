@@ -1,6 +1,5 @@
 # File Uploader
 
-[Live Demo](#)<br/><br/>
 [![The Odin Project](https://img.shields.io/badge/The%20Odin%20Project-A9792B?logo=theodinproject&logoColor=fff)](#)
 
 ## Overview
@@ -52,13 +51,31 @@ git clone git@github.com:JohnFerrancol/file-uploader.git
 cd file-uploader && npm install
 ```
 
-3. Running the Express server
+3. Set up local environment and fill in DATABASE_URL, the Supabase information
+
+```sh
+cp .env.example .env
+```
+
+4. Run prisma migrations to create the database tables
+
+```sh
+npx prisma migrate dev 
+```
+
+5. Generate prisma client
+
+```sh
+npx prisma generate
+```
+
+6. Running the Express server
 
 ```sh
 npm run start
 ```
 
-4. Open in web browser via: http://localhost:3000
+7. Open in web browser via: http://localhost:3000
 
 ## Roadmap
 
