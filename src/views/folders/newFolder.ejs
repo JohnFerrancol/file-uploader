@@ -1,0 +1,26 @@
+<div id="overlay" class="overlay"></div>
+
+<dialog open class="upload-file-container">
+  <h2 class="form-header">Add New Folder</h2>
+  <form class="input-forms" method="POST" action="/folders/new">
+    <div class="input-wrapper">
+      <% const folderError = errors?.find(e => e.path === 'folder'); %>
+      <label for="folder">Folder name</label>
+      <input
+        type="text"
+        id="folder"
+        name="folder"
+        class="<%= folderError ? 'input-error' : '' %>"
+        value="<%= formData.folder %>"
+      />
+    </div>
+    <% if (folderError) {%>
+    <p class="error-msg"><%= folderError.msg %></p>
+    <% } %>
+
+    <div class="button-wrapper">
+      <button type="submit" class="submit-button">Add</button>
+      <a href="/" class="button submit-button"> Cancel </a>
+    </div>
+  </form>
+</dialog>

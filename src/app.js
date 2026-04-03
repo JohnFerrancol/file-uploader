@@ -3,7 +3,6 @@ import expressLayouts from 'express-ejs-layouts';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import flash from 'connect-flash';
-import session from 'express-session';
 import 'dotenv/config';
 
 import passport from './config/passport.js';
@@ -15,6 +14,7 @@ import errorHandler from './middleware/error.middleware.js';
 import indexRoutes from './routes/index.routes.js';
 import authRoutes from './routes/auth.routes.js';
 import filesRoutes from './routes/files.routes.js';
+import foldersRoutes from './routes/folders.routes.js';
 
 const app = express();
 
@@ -45,6 +45,7 @@ app.use(createLocals);
 app.use('/', indexRoutes);
 app.use('/auth', authRoutes);
 app.use('/files', filesRoutes);
+app.use('/folders', foldersRoutes);
 
 app.use(errorHandler);
 

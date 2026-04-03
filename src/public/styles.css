@@ -315,6 +315,10 @@ main .files-container .files-table tbody tr:nth-of-type(even) {
   background-color: #f3f3f3;
 }
 
+main .files-container .files-table tbody .folder-delete {
+  margin-left: 0.5rem;
+}
+
 main .files-container .files-table tbody .btn-group {
   padding: 1.5rem;
   display: flex;
@@ -324,4 +328,11 @@ main .files-container .files-table tbody .btn-group {
 
 main .files-container .files-table tbody .btn-group a {
   color: var(--black);
+}
+
+main .files-container .files-table tbody td .name-wrapper {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-weight: 500;
 }

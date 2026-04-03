@@ -1,4 +1,5 @@
 import { getUserFiles } from '../services/files.services.js';
+import { getUserFolders } from '../services/folders.services.js';
 
 const formatSize = (num) => {
   if (num === 0) return '0';
@@ -27,7 +28,18 @@ const createLocals = async (req, res, next) => {
       }),
     }));
 
+    const folders = await getUserFolders(req.user.id);
+    const formattedDataFolders = folders.map((folder) => ({
+      ...folder,
+      createdAt: folder.createdAt.toLocaleDateString('en-SG', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric',
+      }),
+    }));
+
     res.locals.files = formattedDataFiles;
+    res.locals.folders = formattedDataFolders;
   } else {
     res.locals.links = [
       { href: '#', text: 'OdinFiles' },
@@ -35,12 +47,14 @@ const createLocals = async (req, res, next) => {
       { href: '/auth/register', text: 'Register' },
     ];
     res.locals.files = [];
+    res.locals.folders = [];
   }
 
   res.locals.errors = [];
   res.locals.formData = [];
   res.locals.showUploadDialog = false;
   res.locals.showDeleteDialog = false;
+  res.locals.addFileDialog = false;
 
   next();
 };

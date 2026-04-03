@@ -8,7 +8,7 @@ const PgStore = connectPgSimple(session);
 
 const sessionStore = new PgStore({
   pool: new Pool({ connectionString: process.env.DATABASE_URL }),
-  tableName: 'sessions',
+  tableName: 'Session',
 });
 
 const sessionMiddleware = session({

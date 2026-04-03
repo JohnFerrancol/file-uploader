@@ -1,27 +1,58 @@
 <div class="root-page">
   <% if (locals.showUploadDialog) { %> <%- include ("files/newFile.ejs") %> <% }
   %> <% if (locals.showDeleteDialog) { %> <%- include
-  ("files/deleteFileDialog.ejs") %> <% } %>
+  ("files/deleteFileDialog.ejs") %> <% } %> %> <% if (locals.showAddFileDialog)
+  { %> <%- include ("folders/newFolder.ejs") %> <% } %>
   <div class="root-header">
     <h1>Root Folder</h1>
     <a href="/files/new"
       ><button class="add-entry-button">Upload File</button></a
+    >
+    <a href="/folders/new"
+      ><button class="add-entry-button">Add Folder</button></a
     >
   </div>
   <div class="files-container">
     <table class="files-table">
       <thead>
         <tr>
-          <th>File Name</th>
+          <th>Name</th>
           <th>Size</th>
           <th>Upload Date</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <% files.forEach(file => { %>
+        <% folders.forEach(folder => { %>
         <tr>
-          <td><%= file.filename %></td>
+          <td>
+            <div class="name-wrapper">
+              <i class="fa-solid fa-folder"></i>
+              <p><%= folder.name %></p>
+            </div>
+          </td>
+          <td></td>
+          <td><%= folder.createdAt %></td>
+          <td>
+            <i class="folder-delete fa-solid fa-trash fa-lg"></i>
+          </td>
+        </tr>
+        <% }) %> <% files.forEach(file => { %>
+        <tr>
+          <td>
+            <div class="name-wrapper">
+              <% if (file.mimetype === 'application/pdf') { %>
+              <i class="fa-solid fa-file-pdf"></i>
+              <% } else if (file.mimetype === "image/jpeg" || file.mimetype ===
+              "image/png") {%>
+              <i class="fa-solid fa-image"></i>
+              <% } else {%>
+              <i class="fa-solid fa-file"></i>
+              <% } %>
+
+              <p><%= file.filename %></p>
+            </div>
+          </td>
           <td><%= file.size %></td>
           <td><%= file.createdAt %></td>
           <td class="btn-group">
