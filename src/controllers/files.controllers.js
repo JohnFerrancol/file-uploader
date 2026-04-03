@@ -122,14 +122,14 @@ const deleteFileGet = async (req, res) => {
       title: 'Folder',
       files: formattedFolderFiles,
       folder: folder,
-      showDeleteDialog: true,
+      showDeleteFileDialog: true,
       file: file,
     });
   }
 
   res.render('index', {
     title: 'New Title',
-    showDeleteDialog: true,
+    showDeleteFileDialog: true,
     file: file,
   });
 };

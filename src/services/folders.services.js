@@ -33,4 +33,12 @@ const insertFolder = async (folder, userId) => {
   });
 };
 
-export { getUserFolders, getFolderById, insertFolder };
+const deleteFolderById = async (folderId) => {
+  await prisma.folder.delete({
+    where: {
+      id: folderId,
+    },
+  });
+};
+
+export { getUserFolders, getFolderById, insertFolder, deleteFolderById };

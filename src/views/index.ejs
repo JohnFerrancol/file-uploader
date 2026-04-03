@@ -1,9 +1,10 @@
 <div class="root-page">
   <% if (locals.showUploadDialog) { %> <%- include ("files/newFile.ejs") %> <% }
-  %> <% if (locals.showDeleteDialog) { %> <%- include
+  %> <% if (locals.showDeleteFileDialog) { %> <%- include
   ("files/deleteFileDialog.ejs") %> <% } %> %> <% if
   (locals.showAddFolderDialog) { %> <%- include ("folders/newFolder.ejs") %> <%
-  } %>
+  } %> <% if (locals.showDeleteFolderDialog) { %> <%- include
+  ("folders/deleteFolderDialog.ejs") %> <% } %>
   <div class="root-header">
     <h1>Root Folder</h1>
     <a href="/files/new"
@@ -37,7 +38,9 @@
           <td></td>
           <td><%= folder.createdAt %></td>
           <td>
-            <i class="folder-delete fa-solid fa-trash fa-lg"></i>
+            <a href="/folders/<%= folder.id %>/delete">
+              <i class="folder-delete fa-solid fa-trash fa-lg"></i>
+            </a>
           </td>
         </tr>
         <% }) %> <% files.forEach(file => { %> <% if (file.folderId === null) {

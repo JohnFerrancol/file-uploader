@@ -5,6 +5,8 @@ import {
   newFolderGet,
   newFolderPost,
   getFolderFiles,
+  deleteFolderGet,
+  deleteFolderPost,
 } from '../controllers/folders.controllers.js';
 import {
   newFileGet,
@@ -25,5 +27,8 @@ router.post('/:id/files/new', isAuth, handleMulterError, newFilePost);
 
 router.get('/:folderId/files/:fileId/delete', isAuth, deleteFileGet);
 router.post('/:folderId/files/:fileId/delete', isAuth, deleteFilePost);
+
+router.get('/:id/delete', isAuth, deleteFolderGet);
+router.post('/:id/delete', isAuth, deleteFolderPost);
 
 export default router;

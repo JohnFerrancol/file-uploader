@@ -1,6 +1,10 @@
 import { validationResult, matchedData } from 'express-validator';
 import newFolderValidator from '../validators/folders.validators.js';
-import { getFolderById, insertFolder } from '../services/folders.services.js';
+import {
+  getFolderById,
+  insertFolder,
+  deleteFolderById,
+} from '../services/folders.services.js';
 import { formatSize } from '../middleware/locals.middleware.js';
 
 const newFolderGet = (req, res) => {
@@ -51,4 +55,44 @@ const getFolderFiles = async (req, res) => {
   });
 };
 
-export { newFolderGet, newFolderPost, getFolderFiles };
+const deleteFolderGet = async (req, res) => {
+  const folder = await getFolderById(Number(req.params.id));
+
+  if (!folder) {
+    return res.status(404).send('Folder not found');
+  }
+
+  if (folder.userId !== req.user.id) {
+    return res.status(403).send('Unauthorized');
+  }
+
+  res.render('index', {
+    title: 'New Folder',
+    showDeleteFolderDialog: true,
+    folder: folder,
+  });
+};
+
+const deleteFolderPost = async (req, res) => {
+  const folderId = Number(req.params.id);
+
+  const folder = await getFolderById(folderId);
+
+  if (!folder) {
+    return res.status(404).send('Folder not found');
+  }
+
+  if (folder.userId !== req.user.id) {
+    return res.status(403).send('Unauthorized');
+  }
+  await deleteFolderById(folderId);
+  res.redirect('/');
+};
+
+export {
+  newFolderGet,
+  newFolderPost,
+  getFolderFiles,
+  deleteFolderGet,
+  deleteFolderPost,
+};

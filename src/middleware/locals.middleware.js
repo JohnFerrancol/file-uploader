@@ -53,7 +53,8 @@ const createLocals = async (req, res, next) => {
   res.locals.errors = [];
   res.locals.formData = [];
   res.locals.showUploadDialog = false;
-  res.locals.showDeleteDialog = false;
+  res.locals.showDeleteFileDialog = false;
+  res.locals.showDeleteFolderDialog = false;
   res.locals.showAddFolderDialog = false;
 
   next();
