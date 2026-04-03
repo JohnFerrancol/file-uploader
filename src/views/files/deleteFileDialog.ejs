@@ -1,0 +1,12 @@
+<div id="overlay" class="overlay"></div>
+
+<dialog open class="upload-file-container">
+  <h2 class="form-header">Delete File</h2>
+  <form class="input-forms" method="POST" action="/files/<%= file.id %>/delete">
+    <p>Are you sure you want to delete: <%= file.filename %></p>
+    <div class="button-wrapper">
+      <button type="submit" class="submit-button">Delete</button>
+      <a href="/" class="button submit-button"> Cancel </a>
+    </div>
+  </form>
+</dialog>

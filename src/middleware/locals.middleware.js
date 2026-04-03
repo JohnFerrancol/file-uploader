@@ -27,7 +27,6 @@ const createLocals = async (req, res, next) => {
       }),
     }));
 
-    console.log(formattedDataFiles);
     res.locals.files = formattedDataFiles;
   } else {
     res.locals.links = [
@@ -40,6 +39,8 @@ const createLocals = async (req, res, next) => {
 
   res.locals.errors = [];
   res.locals.formData = [];
+  res.locals.showUploadDialog = false;
+  res.locals.showDeleteDialog = false;
 
   next();
 };

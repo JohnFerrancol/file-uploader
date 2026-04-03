@@ -1,9 +1,13 @@
-import { insertNewFile, getFileFromId } from '../services/files.services.js';
+import {
+  insertNewFile,
+  getFileFromId,
+  deleteFileById,
+} from '../services/files.services.js';
 import newFileValidator from '../validators/files.validators.js';
 import { validationResult } from 'express-validator';
 
 const newFileGet = (req, res) => {
-  res.render('files/newFile', { title: 'New File' });
+  res.render('index', { title: 'New File', showUploadDialog: true });
 };
 
 const newFilePost = [
@@ -12,9 +16,10 @@ const newFilePost = [
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      return res.status(400).render('files/newFile', {
+      return res.status(400).render('index', {
         title: 'New File',
         errors: errors.array(),
+        showUploadDialog: true,
       });
     }
 
@@ -42,4 +47,48 @@ const downloadFileGet = async (req, res) => {
   res.download(file.path, file.filename);
 };
 
-export { newFileGet, newFilePost, downloadFileGet };
+const deleteFileGet = async (req, res) => {
+  const fileId = Number(req.params.id);
+
+  const file = await getFileFromId(fileId);
+
+  if (!file) {
+    return res.status(404).send('File not found');
+  }
+
+  if (file.userId !== req.user.id) {
+    return res.status(403).send('Unauthorized');
+  }
+
+  res.render('index', {
+    title: 'New Title',
+    showDeleteDialog: true,
+    file: file,
+  });
+};
+
+const deleteFilePost = async (req, res) => {
+  const fileId = Number(req.params.id);
+
+  const file = await getFileFromId(fileId);
+
+  if (!file) {
+    return res.status(404).send('File not found');
+  }
+
+  if (file.userId !== req.user.id) {
+    return res.status(403).send('Unauthorized');
+  }
+
+  await deleteFileById(fileId);
+
+  res.redirect('/');
+};
+
+export {
+  newFileGet,
+  newFilePost,
+  downloadFileGet,
+  deleteFileGet,
+  deleteFilePost,
+};

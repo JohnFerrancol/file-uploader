@@ -1,5 +1,7 @@
-<div class="form-container">
-  <h1 class="form-header">Upload New File</h1>
+<div id="overlay" class="overlay"></div>
+
+<dialog open class="upload-file-container">
+  <h2 class="form-header">Upload New File</h2>
   <form
     class="input-forms"
     method="POST"
@@ -8,9 +10,13 @@
   >
     <input type="file" name="file" />
     <% const fileError = errors?.find(e => e.path === 'file'); %> <% if
-    (fileError) {%>
+    (fileError) { %>
     <p class="error-msg"><%= fileError.msg %></p>
     <% } %>
-    <button class="submit-button" type="submit" value="Submit">Upload</button>
+
+    <div class="button-wrapper">
+      <button type="submit" class="submit-button">Upload</button>
+      <a href="/" class="button submit-button"> Cancel </a>
+    </div>
   </form>
-</div>
+</dialog>

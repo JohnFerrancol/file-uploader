@@ -1,4 +1,7 @@
 <div class="root-page">
+  <% if (locals.showUploadDialog) { %> <%- include ("files/newFile.ejs") %> <% }
+  %> <% if (locals.showDeleteDialog) { %> <%- include
+  ("files/deleteFileDialog.ejs") %> <% } %>
   <div class="root-header">
     <h1>Root Folder</h1>
     <a href="/files/new"
@@ -25,7 +28,9 @@
             <a href="/files/<%= file.id %>/download">
               <i class="fa-solid fa-download fa-lg"></i>
             </a>
-            <i class="fa-solid fa-trash fa-lg"></i>
+            <a href="/files/<%= file.id %>/delete">
+              <i class="fa-solid fa-trash fa-lg"></i>
+            </a>
           </td>
         </tr>
         <% }); %>

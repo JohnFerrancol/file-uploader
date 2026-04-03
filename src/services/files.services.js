@@ -27,4 +27,12 @@ const insertNewFile = async (filename, size, path, mimetype, userId) => {
   });
 };
 
-export { getUserFiles, getFileFromId, insertNewFile };
+const deleteFileById = async (fileId) => {
+  await prisma.file.delete({
+    where: {
+      id: fileId,
+    },
+  });
+};
+
+export { getUserFiles, getFileFromId, insertNewFile, deleteFileById };

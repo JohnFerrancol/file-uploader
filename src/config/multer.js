@@ -53,7 +53,8 @@ const handleMulterError = (req, res, next) => {
       if (err.message === 'INVALID_TYPE')
         msg = 'Only PDF, TXT, and Images Files allowed';
 
-      return res.status(400).render('files/newFile', {
+      return res.status(400).render('index', {
+        showUploadDialog: true,
         title: 'New File',
         errors: [{ msg, path: 'file' }],
       });
