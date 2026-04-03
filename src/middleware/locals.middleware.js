@@ -15,6 +15,7 @@ const createLocals = async (req, res, next) => {
   if (req.isAuthenticated()) {
     res.locals.links = [
       { href: '/', text: 'OdinFiles' },
+      { href: '/', text: req.user.username, isText: true },
       { href: '/auth/logout', text: 'Log Out' },
     ];
     const files = await getUserFiles(req.user.id);

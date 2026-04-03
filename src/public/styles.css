@@ -81,6 +81,14 @@ header.navigation .navigation-links:first-of-type:hover {
   text-decoration: none;
 }
 
+header.navigation .username-wrapper {
+  font-size: 1.25rem;
+  font-weight: 600;
+  display: flex;
+  gap: 0.1rem;
+  align-items: center;
+}
+
 main .form-container {
   margin-top: 3rem;
   justify-self: center;
@@ -274,6 +282,16 @@ main .root-page .root-header {
   display: flex;
   gap: 2rem;
   align-items: center;
+}
+
+main .root-page .root-header h1 {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+main .root-page .root-header h1 a {
+  color: var(--black);
 }
 
 main .files-container {

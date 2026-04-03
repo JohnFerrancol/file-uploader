@@ -2,8 +2,13 @@
   <i class="fa fa-upload fa-xl" aria-hidden="true"></i>
 
   <div class="navigation-links-container">
-    <% links.forEach(link => { %>
+    <% links.forEach(link => { %> <% if (link.isText) { %>
+    <div class="username-wrapper">
+      <i class="fa-solid fa-user"></i>
+      <span class="username-display"><%= link.text %></span>
+    </div>
+    <% } else { %>
     <a href="<%= link.href %>" class="navigation-links"><%= link.text %></a>
-    <% }) %>
+    <% } %> <% }) %>
   </div>
 </nav>

@@ -3,7 +3,10 @@
   <% } %> <% if (locals.showDeleteFileDialog) { %> <%- include
   ("../files/deleteFileDialog.ejs") %> <% } %> %>
   <div class="root-header">
-    <h1><%= folder.name %> Folder</h1>
+    <h1>
+      <a href="/"><i class="fa-solid fa-arrow-up"></i></a><%= folder.name %>
+      Folder
+    </h1>
     <a href="/folders/<%= folder.id %>/files/new"
       ><button class="add-entry-button">Upload File</button></a
     >
