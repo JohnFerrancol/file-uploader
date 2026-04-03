@@ -15,7 +15,14 @@ const getFileFromId = async (fileId) => {
   return file;
 };
 
-const insertNewFile = async (filename, size, path, mimetype, userId) => {
+const insertNewFile = async (
+  filename,
+  size,
+  path,
+  mimetype,
+  userId,
+  folderId
+) => {
   await prisma.file.create({
     data: {
       filename: filename,
@@ -23,6 +30,7 @@ const insertNewFile = async (filename, size, path, mimetype, userId) => {
       path: path,
       mimetype: mimetype,
       userId: userId,
+      folderId: folderId,
     },
   });
 };

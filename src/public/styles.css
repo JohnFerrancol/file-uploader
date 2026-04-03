@@ -330,6 +330,11 @@ main .files-container .files-table tbody .btn-group a {
   color: var(--black);
 }
 
+main .files-container .files-table tbody td a {
+  text-decoration: none;
+  color: var(--black);
+}
+
 main .files-container .files-table tbody td .name-wrapper {
   display: flex;
   gap: 0.5rem;

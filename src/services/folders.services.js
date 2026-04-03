@@ -10,13 +10,27 @@ const getUserFolders = async (userId) => {
   return folders;
 };
 
+const getFolderById = async (folderId) => {
+  const folder = prisma.folder.findUnique({
+    where: {
+      id: folderId,
+    },
+    include: {
+      files: true,
+    },
+  });
+
+  return folder;
+};
+
 const insertFolder = async (folder, userId) => {
   await prisma.folder.create({
     data: {
       name: folder,
       userId: userId,
+      files: {},
     },
   });
 };
 
-export { getUserFolders, insertFolder };
+export { getUserFolders, getFolderById, insertFolder };

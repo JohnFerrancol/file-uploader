@@ -1,7 +1,7 @@
 import { getUserFiles } from '../services/files.services.js';
 import { getUserFolders } from '../services/folders.services.js';
 
-const formatSize = (num) => {
+export const formatSize = (num) => {
   if (num === 0) return '0';
   const k = 1000;
   const bytes = ['B', 'KB', 'MB']; // kilo or mega
@@ -54,7 +54,7 @@ const createLocals = async (req, res, next) => {
   res.locals.formData = [];
   res.locals.showUploadDialog = false;
   res.locals.showDeleteDialog = false;
-  res.locals.addFileDialog = false;
+  res.locals.showAddFolderDialog = false;
 
   next();
 };

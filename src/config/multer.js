@@ -1,6 +1,8 @@
 import multer from 'multer';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { getFolderById } from '../services/folders.services.js';
+import { formatSize } from '../middleware/locals.middleware.js';
 
 // Get current working directory
 const __filename = fileURLToPath(import.meta.url);
@@ -41,8 +43,8 @@ const upload = multer({
 }).single('file');
 
 // We define these validators so that we do not upload the files to the tmp folder
-const handleMulterError = (req, res, next) => {
-  upload(req, res, (err) => {
+const handleMulterError = async (req, res, next) => {
+  upload(req, res, async (err) => {
     if (err) {
       // Let the default error message be Upload Error
       let msg = 'Upload Error';
@@ -53,6 +55,26 @@ const handleMulterError = (req, res, next) => {
       if (err.message === 'INVALID_TYPE')
         msg = 'Only PDF, TXT, and Images Files allowed';
 
+      const folderId = req.params.id ? Number(req.params.id) : null;
+      if (folderId) {
+        const folder = await getFolderById(folderId);
+        const formattedFolderFiles = folder.files.map((file) => ({
+          ...file,
+          size: formatSize(file.size),
+          createdAt: file.createdAt.toLocaleDateString('en-SG', {
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric',
+          }),
+        }));
+        return res.status(400).render('folders/folder', {
+          title: 'Folder',
+          errors: [{ msg, path: 'file' }],
+          files: formattedFolderFiles,
+          folder: folder,
+          showUploadDialog: true,
+        });
+      }
       return res.status(400).render('index', {
         showUploadDialog: true,
         title: 'New File',

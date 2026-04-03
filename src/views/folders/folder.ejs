@@ -1,16 +1,11 @@
 <div class="root-page">
-  <% if (locals.showUploadDialog) { %> <%- include ("files/newFile.ejs") %> <% }
-  %> <% if (locals.showDeleteDialog) { %> <%- include
-  ("files/deleteFileDialog.ejs") %> <% } %> %> <% if
-  (locals.showAddFolderDialog) { %> <%- include ("folders/newFolder.ejs") %> <%
-  } %>
+  <% if (locals.showUploadDialog) { %> <%- include ("../files/newFile.ejs") %>
+  <% } %> <% if (locals.showDeleteDialog) { %> <%- include
+  ("../files/deleteFileDialog.ejs") %> <% } %> %>
   <div class="root-header">
-    <h1>Root Folder</h1>
-    <a href="/files/new"
+    <h1><%= folder.name %> Folder</h1>
+    <a href="/folders/<%= folder.id %>/files/new"
       ><button class="add-entry-button">Upload File</button></a
-    >
-    <a href="/folders/new"
-      ><button class="add-entry-button">Add Folder</button></a
     >
   </div>
   <div class="files-container">
@@ -24,24 +19,7 @@
         </tr>
       </thead>
       <tbody>
-        <% folders.forEach(folder => { %>
-        <tr>
-          <td>
-            <a href="/folders/<%= folder.id %>">
-              <div class="name-wrapper">
-                <i class="fa-solid fa-folder"></i>
-                <p><%= folder.name %></p>
-              </div>
-            </a>
-          </td>
-          <td></td>
-          <td><%= folder.createdAt %></td>
-          <td>
-            <i class="folder-delete fa-solid fa-trash fa-lg"></i>
-          </td>
-        </tr>
-        <% }) %> <% files.forEach(file => { %> <% if (file.folderId === null) {
-        %>
+        <% files.forEach(file => { %>
         <tr>
           <td>
             <div class="name-wrapper">
@@ -63,12 +41,12 @@
             <a href="/files/<%= file.id %>/download">
               <i class="fa-solid fa-download fa-lg"></i>
             </a>
-            <a href="/files/<%= file.id %>/delete">
+            <a href="/folders/<%= folder.id %>/files/<%= file.id %>/delete">
               <i class="fa-solid fa-trash fa-lg"></i>
             </a>
           </td>
         </tr>
-        <%} %> <% }); %>
+        <% }); %>
       </tbody>
     </table>
   </div>

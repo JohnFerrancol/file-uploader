@@ -5,7 +5,7 @@
   <form
     class="input-forms"
     method="POST"
-    action="/files/new"
+    action="<%= locals.folder ? `/folders/${folder.id}/files/new` : '/files/new'%>"
     enctype="multipart/form-data"
   >
     <input type="file" name="file" />
@@ -16,7 +16,14 @@
 
     <div class="button-wrapper">
       <button type="submit" class="submit-button">Upload</button>
+
+      <% if (locals.folder) { %>
+      <a href="/folders/<%= folder.id %>" class="button submit-button">
+        Cancel
+      </a>
+      <% } else {%>
       <a href="/" class="button submit-button"> Cancel </a>
+      <% } %>
     </div>
   </form>
 </dialog>

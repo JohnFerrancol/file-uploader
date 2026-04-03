@@ -2,11 +2,21 @@
 
 <dialog open class="upload-file-container">
   <h2 class="form-header">Delete File</h2>
-  <form class="input-forms" method="POST" action="/files/<%= file.id %>/delete">
+  <form
+    class="input-forms"
+    method="POST"
+    action="<%= locals.folder ? `/folders/${folder.id}/files/${file.id}/delete` : `/files/${file.id}/delete` %>"
+  >
     <p>Are you sure you want to delete: <%= file.filename %></p>
     <div class="button-wrapper">
       <button type="submit" class="submit-button">Delete</button>
+      <% if (locals.folder) { %>
+      <a href="/folders/<%= folder.id %>" class="button submit-button">
+        Cancel
+      </a>
+      <% } else {%>
       <a href="/" class="button submit-button"> Cancel </a>
+      <% } %>
     </div>
   </form>
 </dialog>
