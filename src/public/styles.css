@@ -196,6 +196,10 @@ main .form-container input[type='file']::file-selector-button {
   cursor: pointer;
 }
 
+main .form-container input[type='file'] + .error-msg {
+  text-align: center;
+}
+
 main .add-entry-button {
   font-family: inherit;
   background-color: var(--blue);

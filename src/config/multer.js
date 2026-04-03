@@ -20,6 +20,46 @@ const storage = multer.diskStorage({
   },
 });
 
-export const upload = multer({
+const upload = multer({
+  // Ensures a 20MB File Limit
+  limits: { fileSize: 20 * 1024 * 1024 },
+  // Ensures the correct file type
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = [
+      'application/pdf',
+      'text/plain',
+      'image/jpeg',
+      'image/png',
+    ];
+    if (allowedTypes.includes(file.mimetype)) {
+      cb(null, true); // Accept file
+    } else {
+      cb(new Error('INVALID_TYPE'), false); // Reject file
+    }
+  },
   storage: storage,
-});
+}).single('file');
+
+// We define these validators so that we do not upload the files to the tmp folder
+const handleMulterError = (req, res, next) => {
+  upload(req, res, (err) => {
+    if (err) {
+      // Let the default error message be Upload Error
+      let msg = 'Upload Error';
+
+      // Change the error message to the file limit or correct file type if appropriate
+      if (err.code === 'LIMIT_FILE_SIZE')
+        msg = 'File too large (Maximum 20MB Allowed)';
+      if (err.message === 'INVALID_TYPE')
+        msg = 'Only PDF, TXT, and Images Files allowed';
+
+      return res.status(400).render('files/newFile', {
+        title: 'New File',
+        errors: [{ msg, path: 'file' }],
+      });
+    }
+    next();
+  });
+};
+
+export { handleMulterError };

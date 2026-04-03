@@ -6,7 +6,11 @@
     action="/files/new"
     enctype="multipart/form-data"
   >
-    <input type="file" name="file" required />
+    <input type="file" name="file" />
+    <% const fileError = errors?.find(e => e.path === 'file'); %> <% if
+    (fileError) {%>
+    <p class="error-msg"><%= fileError.msg %></p>
+    <% } %>
     <button class="submit-button" type="submit" value="Submit">Upload</button>
   </form>
 </div>

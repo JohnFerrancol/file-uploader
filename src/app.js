@@ -7,6 +7,7 @@ import session from 'express-session';
 import 'dotenv/config';
 
 import passport from './config/passport.js';
+import sessionMiddleware from './config/session.js';
 
 import createLocals from './middleware/locals.middleware.js';
 import errorHandler from './middleware/error.middleware.js';
@@ -26,8 +27,8 @@ const assetsPath = path.join(__dirname, 'public');
 app.use(expressLayouts);
 app.use(express.static(assetsPath));
 
-// Use the passport and flash instances
-app.use(session({ secret: 'cats', resave: false, saveUninitialized: false }));
+// Use the passport and flash instances and run the session middleware
+app.use(sessionMiddleware);
 app.use(flash());
 app.use(passport.session());
 
