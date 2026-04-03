@@ -1,4 +1,3 @@
-import bcrypt from 'bcryptjs';
 import { validationResult, matchedData } from 'express-validator';
 import newUserValidator from '../validators/auth.validators.js';
 import { insertUser } from '../services/auth.services.js';
@@ -22,10 +21,8 @@ const registerUserPost = [
         });
       }
 
-      const { username } = matchedData(req);
-      const hashPassword = await bcrypt.hash(req.body.password, 10);
-      await insertUser(username, hashPassword);
-      console.log(`Inserting user: ${username}....`);
+      const { username, password } = matchedData(req);
+      await insertUser(username, password);
       res.redirect('/auth/login');
     } catch (error) {
       next(error);
